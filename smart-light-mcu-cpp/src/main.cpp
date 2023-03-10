@@ -8,6 +8,7 @@ enum LightState {
 
 // Define the pins
 // All pins have interrupt capability
+#define LED_PIN 13
 #define PIR_PIN 19
 
 void pirInterrupt() {
@@ -26,7 +27,10 @@ void setup() {
   Serial.begin(115200);
 
   // Set the pins
+  // Inputs
   pinMode(PIR_PIN, INPUT);
+  // Outputs
+  pinMode(LED_PIN, OUTPUT);
 
   // Attach the interrupt
   attachInterrupt(PIR_PIN, pirInterrupt, RISING);
@@ -37,11 +41,13 @@ void loop() {
     case ON:
       // Turn the light on
       Serial.println("Light is on");
+      digitalWrite(LED_PIN, HIGH);
       delay(500);
       break;
     case OFF:
       // Turn the light off
       Serial.println("Light is off");
+      digitalWrite(LED_PIN, LOW);
       break;
   }
 }

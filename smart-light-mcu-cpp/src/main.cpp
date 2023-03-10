@@ -11,9 +11,11 @@ void pirInterrupt() {
   // Check the state
   if (lightState == ON) {
     // Turn the light off
+    digitalWrite(LED_PIN, LOW);
     lightState = OFF;
   } else {
     // Turn the light on
+    digitalWrite(LED_PIN, HIGH);
     lightState = ON;
   }
 }
@@ -37,13 +39,11 @@ void loop() {
     case ON:
       // Turn the light on
       Serial.println("Light is on");
-      digitalWrite(LED_PIN, HIGH);
       delay(DELAY);
       break;
     case OFF:
       // Turn the light off
       Serial.println("Light is off");
-      digitalWrite(LED_PIN, LOW);
       break;
   }
 }

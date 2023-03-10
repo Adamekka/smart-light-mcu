@@ -1,15 +1,11 @@
 #include <Arduino.h>
+#include "config.hpp"
 
 // Define the states
 enum LightState {
   ON,
   OFF
 } lightState;
-
-// Define the pins
-// All pins have interrupt capability
-#define LED_PIN 13
-#define PIR_PIN 19
 
 void pirInterrupt() {
   // Check the state
@@ -42,7 +38,7 @@ void loop() {
       // Turn the light on
       Serial.println("Light is on");
       digitalWrite(LED_PIN, HIGH);
-      delay(500);
+      delay(DELAY);
       break;
     case OFF:
       // Turn the light off

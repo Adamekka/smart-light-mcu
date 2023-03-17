@@ -8,5 +8,5 @@
 // Define delay
 // Replace the delay with your own
 // Delay is in milliseconds
-// It is used to wait for the light to turn off if it's on
+// Time to wait before turning the light off
 #define DELAY 500

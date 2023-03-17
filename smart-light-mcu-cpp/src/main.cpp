@@ -15,18 +15,26 @@
 enum LightState {
   ON,
   OFF
-} lightState;
+};
+
+// Create light structure
+struct Light {
+  // The state
+  LightState state = OFF;
+  // The brightness
+  int brightness = 0;
+} Light;
 
 void pirInterrupt() {
   // Check the state
-  if (lightState == ON) {
+  if (Light.state == ON) {
     // Turn the light off
     digitalWrite(LED_PIN, LOW);
-    lightState = OFF;
+    Light.state = OFF;
   } else {
     // Turn the light on
     digitalWrite(LED_PIN, HIGH);
-    lightState = ON;
+    Light.state = ON;
   }
 }
 
@@ -48,7 +56,7 @@ void setup() {
 }
 
 void loop() {
-  switch (lightState) {
+  switch (Light.state) {
     case ON:
       // Turn the light on
       Serial.println("Light is on");

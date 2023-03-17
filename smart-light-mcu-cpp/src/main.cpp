@@ -1,5 +1,15 @@
+// Libs
 #include <Arduino.h>
+
+// Configs
 #include "config.hpp"
+
+// My libs
+#include "wifi.hpp"
+
+// You need to create your own `wifi-config.hpp` file
+// with your own WiFi credentials and Smart Light credentials
+// See `wifi-config.hpp.example` for more info
 
 // Define the states
 enum LightState {
@@ -23,6 +33,9 @@ void pirInterrupt() {
 void setup() {
   // Initialize serial
   Serial.begin(115200);
+
+  // Initialize WiFi
+  setupWiFi();
 
   // Set the pins
   // Inputs

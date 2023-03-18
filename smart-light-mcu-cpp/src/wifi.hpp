@@ -1,6 +1,7 @@
 // Libs
 #include <Arduino.h>
 #include <WiFi.h>
+#include <WiFiClientSecure.h>
 
 // Configs
 #include "wifi-config.hpp"

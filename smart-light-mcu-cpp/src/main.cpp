@@ -92,18 +92,20 @@ void setup() {
 
   // Attach the interrupt
   attachInterrupt(PIR_PIN, pirInterrupt, RISING);
+
+  Serial.println("Setup done!");
 }
 
 void loop() {
   switch (Light.state) {
     case ON:
       // Turn the light on
-      Serial.println("Light is on");
+      Serial.printf("\33\rLight is on");
       delay(DELAY);
       break;
     case OFF:
       // Turn the light off
-      Serial.println("Light is off");
+      Serial.printf("\33\rLight is off");
       break;
   }
 }

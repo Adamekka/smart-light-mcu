@@ -18,6 +18,18 @@ public:
     ON,
     OFF,
   } state = OFF;
+
+  // Turn the light on
+  auto on() -> void {
+    digitalWrite(LED_PIN, HIGH);
+    state = ON;
+  }
+
+  // Turn the light off
+  auto off() -> void {
+    digitalWrite(LED_PIN, LOW);
+    state = OFF;
+  }
 } Light;
 
 auto pirInterrupt() -> void {
@@ -25,13 +37,11 @@ auto pirInterrupt() -> void {
   switch (Light.state) {
   case Light::State::ON:
     // Turn the light off
-    digitalWrite(LED_PIN, LOW);
-    Light.state = Light::State::OFF;
+    Light.off();
     break;
   case Light::State::OFF:
     // Turn the light on
-    digitalWrite(LED_PIN, HIGH);
-    Light.state = Light::State::ON;
+    Light.on();
     break;
   }
 }

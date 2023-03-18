@@ -25,7 +25,7 @@ struct Light {
   int brightness = 0;
 } Light;
 
-void pirInterrupt() {
+auto pirInterrupt() -> void {
   // Check the state
   if (Light.state == ON) {
     // Turn the light off
@@ -38,7 +38,7 @@ void pirInterrupt() {
   }
 }
 
-void setup() {
+auto setup() -> void {
   // Initialize serial
   Serial.begin(115200);
 
@@ -57,7 +57,7 @@ void setup() {
   Serial.println("Setup done!");
 }
 
-void loop() {
+auto loop() -> void {
   switch (Light.state) {
     case ON:
       // Turn the light on

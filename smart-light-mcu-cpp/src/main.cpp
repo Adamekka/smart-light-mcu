@@ -1,7 +1,5 @@
 // Libs
 #include <Arduino.h>
-#include "SinricPro.h"
-#include "SinricProLight.h"
 
 // Configs
 #include "config.hpp"

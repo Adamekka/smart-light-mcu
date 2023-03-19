@@ -21,15 +21,17 @@ HTTPClient http;
 #define SMART_LIGHT_OFF_URL                                                    \
   "https://maker.ifttt.com/trigger/light_off/with/key/" IFTTT_KEY
 
+// Define a class for the light
 class Light {
 private:
-  // A private method that handles HTTP response codes
+  // Define a private function to handle HTTP results
   auto handleHttpResult(int httpCode) -> void {
     if (httpCode < 0) {
+      // If the HTTP request failed, print an error message
       Serial.printf("[HTTP] GET... failed, error: %s\r\n",
                     http.errorToString(httpCode).c_str());
     } else {
-      // HTTP header has been send and Server response header has been handled
+      // If the HTTP request succeeded, print the response
       Serial.printf("[HTTP] GET... code: %d\r\n", httpCode);
 
       // file found at server
@@ -40,9 +42,9 @@ private:
     }
   }
 
-  // A private method that sends a request to turn on the smart light
+  // Define a private function to turn on the smart light
   auto smartLightOn() -> void {
-    // Send the request
+    // Send the request to turn on the light
     Serial.println("[HTTP] begin...");
     int httpCode = http.begin(SMART_LIGHT_ON_URL);
     Serial.println("[HTTP] GET...");
@@ -52,9 +54,9 @@ private:
     http.end();
   }
 
-  // A private method that sends a request to turn off the smart light
+  // Define a private function to turn off the smart light
   auto smartLightOff() -> void {
-    // Send the request
+    // Send the request to turn off the light
     Serial.println("[HTTP] begin...");
     int httpCode = http.begin(SMART_LIGHT_OFF_URL);
     Serial.println("[HTTP] GET...");
@@ -65,7 +67,7 @@ private:
   }
 
 public:
-  // Define the states
+  // Define the states for the light
   enum State {
     ON,
     OFF,
@@ -73,7 +75,7 @@ public:
 
   bool activated = false;
 
-  // A public method that turns the light on
+  // Define a public function to turn the light on
   auto on() -> void {
     // Turn on the LED
     digitalWrite(LED_PIN, HIGH);
@@ -81,7 +83,7 @@ public:
     smartLightOn();
   }
 
-  // A public method that turns the light off
+  // Define a public function to turn the light off
   auto off() -> void {
     // Turn off the LED
     digitalWrite(LED_PIN, LOW);
@@ -90,10 +92,12 @@ public:
   }
 } Light;
 
-// A function that sets up the WiFi connection
+// Define a function to set up the WiFi connection
 auto setupWiFi() -> void {
+  // Print a message to indicate that the WiFi connection is being established
   Serial.printf("\r\n[Wifi]: Connecting");
-  // Set the WiFi mode to station (client)
+
+  // Set the WiFi mode to station mode and connect to the network
   WiFi.mode(WIFI_STA);
   // Connect to the WiFi network
   WiFi.begin(WIFI_SSID, WIFI_PASS);
@@ -108,7 +112,7 @@ auto setupWiFi() -> void {
     }
   }
 
-  // If the connection failed, print an error message
+  // If the connection was not established, print an error message
   if (WiFi.status() != WL_CONNECTED) {
     Serial.printf("\r[WiFi]: Failed to connect to WiFi\n");
     Serial.println("[WiFi]: Smart light will not work without WiFi connection");

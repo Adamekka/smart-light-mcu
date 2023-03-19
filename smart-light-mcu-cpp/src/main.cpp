@@ -23,13 +23,7 @@ HTTPClient http;
 
 class Light {
 private:
-  auto smartLightOn() -> void {
-    // Send the request
-    Serial.println("[HTTP] begin...");
-    int httpCode = http.begin(SMART_LIGHT_ON_URL);
-    Serial.println("[HTTP] GET...");
-    http.GET();
-
+  auto handleHttpResult(int httpCode) -> void {
     if (httpCode < 0) {
       Serial.printf("[HTTP] GET... failed, error: %s\r\n",
                     http.errorToString(httpCode).c_str());
@@ -43,7 +37,15 @@ private:
         Serial.println(payload);
       }
     }
+  }
 
+  auto smartLightOn() -> void {
+    // Send the request
+    Serial.println("[HTTP] begin...");
+    int httpCode = http.begin(SMART_LIGHT_ON_URL);
+    Serial.println("[HTTP] GET...");
+    http.GET();
+    handleHttpResult(httpCode);
     http.end();
   }
 
@@ -53,21 +55,7 @@ private:
     int httpCode = http.begin(SMART_LIGHT_OFF_URL);
     Serial.println("[HTTP] GET...");
     http.GET();
-
-    if (httpCode < 0) {
-      Serial.printf("[HTTP] GET... failed, error: %s\r\n",
-                    http.errorToString(httpCode).c_str());
-    } else {
-      // HTTP header has been send and Server response header has been handled
-      Serial.printf("[HTTP] GET... code: %d\r\n", httpCode);
-
-      // file found at server
-      if (httpCode == HTTP_CODE_OK) {
-        String payload = http.getString();
-        Serial.println(payload);
-      }
-    }
-
+    handleHttpResult(httpCode);
     http.end();
   }
 

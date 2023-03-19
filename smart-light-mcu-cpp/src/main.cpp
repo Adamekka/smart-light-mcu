@@ -23,6 +23,7 @@ HTTPClient http;
 
 class Light {
 private:
+  // A private method that handles HTTP response codes
   auto handleHttpResult(int httpCode) -> void {
     if (httpCode < 0) {
       Serial.printf("[HTTP] GET... failed, error: %s\r\n",
@@ -39,22 +40,26 @@ private:
     }
   }
 
+  // A private method that sends a request to turn on the smart light
   auto smartLightOn() -> void {
     // Send the request
     Serial.println("[HTTP] begin...");
     int httpCode = http.begin(SMART_LIGHT_ON_URL);
     Serial.println("[HTTP] GET...");
     http.GET();
+    // Handle the response
     handleHttpResult(httpCode);
     http.end();
   }
 
+  // A private method that sends a request to turn off the smart light
   auto smartLightOff() -> void {
     // Send the request
     Serial.println("[HTTP] begin...");
     int httpCode = http.begin(SMART_LIGHT_OFF_URL);
     Serial.println("[HTTP] GET...");
     http.GET();
+    // Handle the response
     handleHttpResult(httpCode);
     http.end();
   }
@@ -68,7 +73,7 @@ public:
 
   bool activated = false;
 
-  // Turn the light on
+  // A public method that turns the light on
   auto on() -> void {
     // Turn on the LED
     digitalWrite(LED_PIN, HIGH);
@@ -76,7 +81,7 @@ public:
     smartLightOn();
   }
 
-  // Turn the light off
+  // A public method that turns the light off
   auto off() -> void {
     // Turn off the LED
     digitalWrite(LED_PIN, LOW);
@@ -85,11 +90,15 @@ public:
   }
 } Light;
 
+// A function that sets up the WiFi connection
 auto setupWiFi() -> void {
   Serial.printf("\r\n[Wifi]: Connecting");
+  // Set the WiFi mode to station (client)
   WiFi.mode(WIFI_STA);
+  // Connect to the WiFi network
   WiFi.begin(WIFI_SSID, WIFI_PASS);
 
+  // Wait for the connection to be established
   for (int i = 0; i < 60; i++) {
     if (WiFi.status() != WL_CONNECTED) {
       Serial.printf(".");
@@ -99,6 +108,7 @@ auto setupWiFi() -> void {
     }
   }
 
+  // If the connection failed, print an error message
   if (WiFi.status() != WL_CONNECTED) {
     Serial.printf("\r[WiFi]: Failed to connect to WiFi\n");
     Serial.println("[WiFi]: Smart light will not work without WiFi connection");

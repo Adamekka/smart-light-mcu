@@ -10,3 +10,8 @@
 // Delay is in milliseconds
 // Time to wait before turning the light off
 #define DELAY 500
+
+// Define key for IFTTT
+// Replace the key with your own
+// Key is used to trigger the IFTTT event
+#define IFTTT_KEY "5DkTwLg-XvcT5TIdFTF0N"

@@ -22,7 +22,7 @@ HTTPClient http;
   "https://maker.ifttt.com/trigger/light_off/with/key/" IFTTT_KEY
 
 // Define a class for the light
-class light {
+class Light {
 private:
   // Define a private function to handle HTTP results
   auto handleHttpResult(int httpCode) -> void {
@@ -126,15 +126,15 @@ auto setupWiFi() -> void {
 auto pirInterrupt() -> void {
   // Check the state
   switch (light.state) {
-  case light::State::ON:
+  case Light::State::ON:
     light.activated = false;
     // Turn the light off
-    light.state = light::State::OFF;
+    light.state = Light::State::OFF;
     break;
-  case light::State::OFF:
+  case Light::State::OFF:
     light.activated = false;
     // Turn the light on
-    light.state = light::State::ON;
+    light.state = Light::State::ON;
     break;
   }
 }
@@ -165,18 +165,18 @@ auto loop() -> void {
     return;
   }
   switch (light.state) {
-  case light::State::ON:
+  case Light::State::ON:
     // Turn the light on
     Serial.println("Light is on");
     light.on();
     delay(DELAY);
     light.activated = true;
     break;
-  case light::State::OFF:
+  case Light::State::OFF:
     // Turn the light off
     Serial.println("Light is off");
     light.off();
-    light.state = light::State::OFF;
+    light.state = Light::State::OFF;
     light.activated = true;
     break;
   }

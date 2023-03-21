@@ -22,7 +22,7 @@ HTTPClient http;
   "https://maker.ifttt.com/trigger/light_off/with/key/" IFTTT_KEY
 
 // Define a class for the light
-class Light {
+class light {
 private:
   // Define a private function to handle HTTP results
   auto handleHttpResult(int httpCode) -> void {
@@ -90,7 +90,7 @@ public:
     // Turn off the smart light
     smartLightOff();
   }
-} Light;
+} light;
 
 // Define a function to set up the WiFi connection
 auto setupWiFi() -> void {
@@ -125,16 +125,16 @@ auto setupWiFi() -> void {
 
 auto pirInterrupt() -> void {
   // Check the state
-  switch (Light.state) {
-  case Light::State::ON:
-    Light.activated = false;
+  switch (light.state) {
+  case light::State::ON:
+    light.activated = false;
     // Turn the light off
-    Light.state = Light::State::OFF;
+    light.state = light::State::OFF;
     break;
-  case Light::State::OFF:
-    Light.activated = false;
+  case light::State::OFF:
+    light.activated = false;
     // Turn the light on
-    Light.state = Light::State::ON;
+    light.state = light::State::ON;
     break;
   }
 }
@@ -160,24 +160,24 @@ auto setup() -> void {
 }
 
 auto loop() -> void {
-  if (Light.activated) {
+  if (light.activated) {
     // Break loop
     return;
   }
-  switch (Light.state) {
-  case Light::State::ON:
+  switch (light.state) {
+  case light::State::ON:
     // Turn the light on
     Serial.println("Light is on");
-    Light.on();
+    light.on();
     delay(DELAY);
-    Light.activated = true;
+    light.activated = true;
     break;
-  case Light::State::OFF:
+  case light::State::OFF:
     // Turn the light off
     Serial.println("Light is off");
-    Light.off();
-    Light.state = Light::State::OFF;
-    Light.activated = true;
+    light.off();
+    light.state = light::State::OFF;
+    light.activated = true;
     break;
   }
 }

@@ -15,16 +15,16 @@
 // Global variables
 HTTPClient http;
 
-// Define macros
+// Macros
 #define SMART_LIGHT_ON_URL                                                     \
   "https://maker.ifttt.com/trigger/light_on/with/key/" IFTTT_KEY
 #define SMART_LIGHT_OFF_URL                                                    \
   "https://maker.ifttt.com/trigger/light_off/with/key/" IFTTT_KEY
 
-// Define a class for the light
+// Class for the light
 class Light {
 private:
-  // Define a private method to handle HTTP results
+  // Private method to handle HTTP results
   auto handleHttpResult(int httpCode) -> void {
     if (httpCode < 0) {
       // If the HTTP request failed, print an error message
@@ -42,7 +42,7 @@ private:
     }
   }
 
-  // Define a method function to turn on the smart light
+  // Private method to turn on the smart light
   auto smartLightOn() -> void {
     // Send the request to turn on the light
     Serial.println("[HTTP] begin...");
@@ -54,7 +54,7 @@ private:
     http.end();
   }
 
-  // Define a private method to turn off the smart light
+  // Private method to turn off the smart light
   auto smartLightOff() -> void {
     // Send the request to turn off the light
     Serial.println("[HTTP] begin...");
@@ -67,7 +67,7 @@ private:
   }
 
 public:
-  // Define the states for the light
+  // States for the light
   enum State {
     ON,
     OFF,
@@ -80,7 +80,7 @@ public:
   // send multiple requests to the smart light
   bool activated = false;
 
-  // Define a public method to turn the light on
+  // Public method to turn the light on
   auto on() -> void {
     // Turn on the LED
     digitalWrite(LED_PIN, HIGH);
@@ -88,7 +88,7 @@ public:
     smartLightOn();
   }
 
-  // Define a public method to turn the light off
+  // Public method to turn the light off
   auto off() -> void {
     // Turn off the LED
     digitalWrite(LED_PIN, LOW);
@@ -97,7 +97,7 @@ public:
   }
 } light;
 
-// Define a function to set up the WiFi connection
+// Function to set up the WiFi connection
 auto setupWiFi() -> void {
   // Print a message to indicate that the WiFi connection is being established
   Serial.printf("\r\n[Wifi]: Connecting");
